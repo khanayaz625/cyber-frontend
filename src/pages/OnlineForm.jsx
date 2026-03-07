@@ -78,10 +78,10 @@ const OnlineForm = () => {
                 <motion.div 
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    className="bg-white rounded-[2rem] shadow-xl p-4 md:p-6 border border-gray-100 shrink-0"
+                    className="bg-white rounded-[2rem] shadow-xl p-4 md:p-6 border border-gray-100 shrink-0 max-w-2xl mx-auto w-full"
                 >
-                    <form onSubmit={handleSubmit} className="space-y-3">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
                             <div className="space-y-1">
                                 <label className="flex items-center text-primary font-black text-xs mb-1"><UserCircle className="mr-1 text-secondary" size={14} /> Full Name</label>
                                 <input 

@@ -10,6 +10,14 @@ import Contact from './pages/Contact';
 import AdminLogin from './admin/AdminLogin';
 import AdminDashboard from './admin/AdminDashboard';
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 function AppContent() {
   const location = useLocation();
   const isAdminPath = location.pathname.startsWith('/admin');
@@ -29,6 +37,7 @@ function AppContent() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
+      <ScrollToTop />
       {!isAdminPath && <Navbar />}
       <main className="flex-grow">
         <Routes>
