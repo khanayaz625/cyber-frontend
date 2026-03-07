@@ -10,7 +10,7 @@ const PriceList = () => {
     const defaultPrices = [
         { name: 'B&W Printout', price: 5, icon: <Printer /> },
         { name: 'Color Printout', price: 20, icon: <Printer /> },
-        { name: 'Online Form Filling', price: 50, icon: <FileText /> },
+        { name: 'Online Form Filling', price: 100, icon: <FileText /> },
         { name: 'Lamination', price: 30, icon: <CreditCard /> },
         { name: 'Passport Size Photo (8)', price: 50, icon: <Printer /> },
         { name: 'PAN Card Apply (New/Correction)', price: 200, icon: <CardIcon /> },
