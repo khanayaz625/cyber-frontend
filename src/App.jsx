@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { ArrowUp, MessageCircle } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Services from './pages/Services';
@@ -12,6 +13,19 @@ import AdminDashboard from './admin/AdminDashboard';
 function AppContent() {
   const location = useLocation();
   const isAdminPath = location.pathname.startsWith('/admin');
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -65,6 +79,30 @@ function AppContent() {
                 <p>© 2026 Javed Computers. All Rights Reserved.</p>
             </div>
         </footer>
+      )}
+      
+      {!isAdminPath && (
+        <>
+            {/* Scroll to top button */}
+            <button 
+                onClick={scrollToTop}
+                className={`fixed bottom-6 right-6 p-4 rounded-full shadow-2xl transition-all duration-300 z-50 flex items-center justify-center ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'} bg-secondary text-primary hover:bg-cyan-300`}
+                title="Go to top"
+            >
+                <ArrowUp size={24} className="font-bold" />
+            </button>
+
+            {/* Mobile Sticky WhatsApp Button */}
+            <a 
+                href="https://wa.me/917398858482" 
+                target="_blank" 
+                rel="noreferrer"
+                className="md:hidden fixed bottom-6 left-6 p-4 rounded-full shadow-2xl transition-all z-50 bg-green-500 text-white flex items-center justify-center hover:bg-green-600 animate-pulse"
+                title="Chat on WhatsApp"
+            >
+                <MessageCircle size={28} />
+            </a>
+        </>
       )}
     </div>
   );

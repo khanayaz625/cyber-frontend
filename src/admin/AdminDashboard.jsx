@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LayoutDashboard, Users, FileText, Settings, LogOut, CheckCircle, Clock, Trash, ExternalLink, Menu, X, TerminalSquare, AlertCircle, Phone, Mail, MapPin, Briefcase, MessageCircle } from 'lucide-react';
+import { LayoutDashboard, Users, FileText, Settings, LogOut, CheckCircle, Clock, Trash, ExternalLink, Menu, X, TerminalSquare, AlertCircle, Phone, Mail, MapPin, Briefcase, MessageCircle, Edit2, RotateCcw } from 'lucide-react';
 
 const AdminDashboard = () => {
     const [forms, setForms] = useState([]);
@@ -13,6 +13,8 @@ const AdminDashboard = () => {
     const [stats, setStats] = useState({ total: 0, pending: 0, completed: 0 });
     const [activeTab, setActiveTab] = useState('Applications');
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [editingServiceId, setEditingServiceId] = useState(null);
+    const [editServicePrice, setEditServicePrice] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -90,6 +92,21 @@ const AdminDashboard = () => {
             fetchServices();
         } catch (err) {
             alert('Delete failed');
+        }
+    };
+
+    const startEditingPrice = (service) => {
+        setEditingServiceId(service._id);
+        setEditServicePrice(service.price);
+    };
+
+    const saveServicePrice = async (service) => {
+        try {
+            await axios.put(`${import.meta.env.VITE_API_URL}/services/${service._id}`, { ...service, price: Number(editServicePrice) });
+            setEditingServiceId(null);
+            fetchServices();
+        } catch (err) {
+            alert('Update failed');
         }
     };
 
@@ -435,11 +452,44 @@ const AdminDashboard = () => {
                                         <div key={service._id} className="bg-white p-6 rounded-3xl shadow-md border border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
                                             <div>
                                                 <h3 className="text-xl font-black text-primary">{service.name}</h3>
-                                                <p className="text-sm font-bold text-gray-500 mt-1">Price: ₹{service.price} <span className="mx-2">•</span> Category: {service.category}</p>
-                                                <p className="text-xs text-gray-400 mt-1">{service.description}</p>
+                                                <div className="flex items-center space-x-2 mt-1">
+                                                    {editingServiceId === service._id ? (
+                                                        <div className="flex items-center space-x-2">
+                                                            <span className="text-sm font-bold text-gray-500">Price: ₹</span>
+                                                            <input 
+                                                                type="number" 
+                                                                className="p-1 w-20 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:border-secondary font-bold text-gray-700 text-sm" 
+                                                                value={editServicePrice} 
+                                                                onChange={(e) => setEditServicePrice(e.target.value)} 
+                                                            />
+                                                            <button 
+                                                                onClick={() => saveServicePrice(service)}
+                                                                className="ml-2 text-xs bg-green-500 text-white font-bold py-1 px-3 rounded-lg hover:bg-green-600 transition-colors"
+                                                            >
+                                                                Save
+                                                            </button>
+                                                            <button 
+                                                                onClick={() => setEditingServiceId(null)}
+                                                                className="text-xs bg-gray-300 text-gray-700 font-bold py-1 px-3 rounded-lg hover:bg-gray-400 transition-colors"
+                                                            >
+                                                                Cancel
+                                                            </button>
+                                                        </div>
+                                                    ) : (
+                                                        <p className="text-sm font-bold text-gray-500">
+                                                            Price: ₹{service.price} 
+                                                            <span className="ml-2 cursor-pointer text-blue-500 hover:text-blue-700 transition-colors inline-block" onClick={() => startEditingPrice(service)}>
+                                                                <Edit2 size={14} className="inline mb-0.5" />
+                                                            </span>
+                                                        </p>
+                                                    )}
+                                                    <span className="mx-2 text-gray-500">•</span>
+                                                    <p className="text-sm font-bold text-gray-500">Category: {service.category}</p>
+                                                </div>
+                                                <p className="text-xs text-gray-400 mt-2">{service.description}</p>
                                             </div>
-                                            <div className="flex space-x-3 shrink-0">
-                                                <button onClick={() => deleteService(service._id)} className="p-3 bg-red-50 text-red-600 rounded-xl hover:bg-red-600 hover:text-white transition-colors"><Trash size={20} /></button>
+                                            <div className="flex space-x-3 shrink-0 mt-3 md:mt-0">
+                                                <button onClick={() => deleteService(service._id)} className="p-3 bg-red-50 text-red-600 rounded-xl hover:bg-red-600 hover:text-white transition-colors" title="Delete Service"><Trash size={20} /></button>
                                             </div>
                                         </div>
                                     ))}
