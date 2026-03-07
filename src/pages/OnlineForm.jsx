@@ -81,7 +81,7 @@ const OnlineForm = () => {
                     className="bg-white rounded-[2rem] shadow-xl p-4 md:p-6 border border-gray-100 shrink-0 max-w-2xl mx-auto w-full"
                 >
                     <form onSubmit={handleSubmit} className="space-y-4">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 max-w-xl mx-auto">
                             <div className="space-y-1">
                                 <label className="flex items-center text-primary font-black text-xs mb-1"><UserCircle className="mr-1 text-secondary" size={14} /> Full Name</label>
                                 <input 
@@ -116,7 +116,7 @@ const OnlineForm = () => {
                             </div>
                         </div>
 
-                        <div className="space-y-1">
+                        <div className="space-y-1 max-w-xl mx-auto">
                             <label className="flex items-center text-primary font-black text-xs mb-1"><Globe className="mr-1 text-purple-500" size={14} /> Service Required</label>
                             <select 
                                 name="serviceType" required 
@@ -135,8 +135,8 @@ const OnlineForm = () => {
                             </select>
                         </div>
 
-                        <div className="space-y-1 text-center">
-                            <label className="flex items-center justify-center text-primary font-black text-xs md:text-sm mb-1"><FilePlus className="mr-1 text-secondary" size={14} /> Upload Documents (Max 5)</label>
+                        <div className="space-y-1 text-center max-w-xl mx-auto">
+                            <label className="flex items-center justify-center text-primary font-black text-xs mb-1"><FilePlus className="mr-1 text-secondary" size={14} /> Upload Documents (Max 5)</label>
                             <div className="relative border-2 border-dashed border-gray-200 rounded-xl p-4 hover:border-secondary transition-all group flex flex-col items-center cursor-pointer">
                                 <input 
                                     type="file" multiple onChange={handleFileChange}
@@ -150,7 +150,7 @@ const OnlineForm = () => {
 
                         <button 
                             type="submit" disabled={submitting}
-                            className="w-full bg-primary text-secondary px-4 py-2 rounded-lg text-sm md:text-base font-black shadow-lg hover:bg-gray-900 transition-all transform hover:-translate-y-1 flex items-center justify-center mt-1"
+                            className="w-full max-w-xl mx-auto bg-primary text-secondary px-4 py-2 rounded-lg text-sm md:text-base font-black shadow-lg hover:bg-gray-900 transition-all transform hover:-translate-y-1 flex items-center justify-center mt-1"
                         >
                             {submitting ? 'PROCESSING...' : 'SUBMIT REQUEST'}
                         </button>
