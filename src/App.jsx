@@ -21,6 +21,7 @@ function ScrollToTop() {
 function AppContent() {
   const location = useLocation();
   const isAdminPath = location.pathname.startsWith('/admin');
+  const isFullHeightPage = location.pathname === '/contact' || location.pathname === '/online-form';
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -39,7 +40,7 @@ function AppContent() {
     <div className="flex flex-col min-h-screen bg-gray-50">
       <ScrollToTop />
       {!isAdminPath && <Navbar />}
-      <main className="flex-grow">
+      <main className="grow">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
@@ -50,7 +51,7 @@ function AppContent() {
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>
       </main>
-      {!isAdminPath && (
+      {!isAdminPath && !isFullHeightPage && (
         <footer className="bg-primary pt-24 pb-12 text-center mt-auto border-t border-white/5 relative overflow-hidden">
             <div className="absolute top-0 right-1/4 w-96 h-96 bg-secondary/5 rounded-full -mt-48 blur-3xl"></div>
             <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col md:flex-row justify-between items-start space-y-12 md:space-y-0 text-white/40">

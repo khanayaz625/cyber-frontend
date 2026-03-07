@@ -16,7 +16,7 @@ const Contact = () => {
     }
   }, [searchParams]);
   return (
-    <div className="bg-gray-50 h-screen flex flex-col pt-24 pb-6 overflow-hidden">
+    <div className="bg-gray-50 h-screen flex flex-col pt-24 pb-4 md:pb-6 overflow-y-auto md:overflow-hidden relative">
       <div className="max-w-6xl mx-auto px-4 w-full h-full flex flex-col justify-between">
         <header className="mb-2 text-center shrink-0">
           <h1 className="text-3xl md:text-4xl font-black text-primary tracking-tight">Get in <span className="text-accent underline decoration-orange-300 decoration-4 underline-offset-4">Touch</span></h1>
@@ -67,46 +67,46 @@ const Contact = () => {
             <motion.div 
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                className="grid grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4 shrink-0 max-w-6xl mx-auto w-full"
+                className="grid grid-cols-2 lg:grid-cols-5 gap-2 md:gap-4 shrink-0 max-w-6xl mx-auto w-full pb-2"
             >
-              <div className="bg-white p-3 md:p-4 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center group hover:bg-primary transition-all duration-300">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-2 shadow-md group-hover:bg-white transition-colors">
-                  <Phone size={20} />
+              <div className="bg-white p-2 md:p-4 rounded-xl shadow-lg border border-gray-100 flex flex-col items-center text-center group hover:bg-primary transition-all duration-300">
+                <div className="w-8 h-8 md:w-12 md:h-12 bg-blue-100 text-blue-600 rounded-lg md:rounded-xl flex items-center justify-center mb-1 md:mb-2 shadow-md group-hover:bg-white transition-colors">
+                  <Phone size={18} />
                 </div>
-                <h3 className="text-xs md:text-sm font-black text-primary group-hover:text-white">Call Us</h3>
-                <a href="tel:7398858482" className="text-gray-500 text-[10px] md:text-xs font-bold group-hover:text-blue-200">+91 73988 58482</a>
+                <h3 className="text-[10px] md:text-sm font-black text-primary group-hover:text-white uppercase tracking-tighter">Call</h3>
+                <a href="tel:7398858482" className="text-gray-500 text-[9px] md:text-xs font-bold group-hover:text-blue-200">+91 73988 58482</a>
               </div>
 
-              <div className="bg-white p-3 md:p-4 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center group hover:bg-green-600 transition-all duration-300">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-2 shadow-md group-hover:bg-white transition-colors">
-                  <MessageCircle size={20} />
+              <div className="bg-white p-2 md:p-4 rounded-xl shadow-lg border border-gray-100 flex flex-col items-center text-center group hover:bg-green-600 transition-all duration-300">
+                <div className="w-8 h-8 md:w-12 md:h-12 bg-green-100 text-green-600 rounded-lg md:rounded-xl flex items-center justify-center mb-1 md:mb-2 shadow-md group-hover:bg-white transition-colors">
+                  <MessageCircle size={18} />
                 </div>
-                <h3 className="text-xs md:text-sm font-black text-primary group-hover:text-white">WhatsApp</h3>
-                <a href="https://wa.me/917398858482" target="_blank" rel="noreferrer" className="text-gray-500 text-[10px] md:text-xs font-bold group-hover:text-green-100">+91 73988 58482</a>
+                <h3 className="text-[10px] md:text-sm font-black text-primary group-hover:text-white uppercase tracking-tighter">WhatsApp</h3>
+                <a href="https://wa.me/917398858482" target="_blank" rel="noreferrer" className="text-gray-500 text-[9px] md:text-xs font-bold group-hover:text-green-100">+91 73988 58482</a>
               </div>
 
-              <div className="bg-white p-3 md:p-4 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center group hover:bg-orange-500 transition-all duration-300">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center mb-2 shadow-md group-hover:bg-white transition-colors">
-                  <Mail size={20} />
+              <div className="bg-white p-2 md:p-4 rounded-xl shadow-lg border border-gray-100 flex flex-col items-center text-center group hover:bg-orange-500 transition-all duration-300">
+                <div className="w-8 h-8 md:w-12 md:h-12 bg-orange-100 text-orange-600 rounded-lg md:rounded-xl flex items-center justify-center mb-1 md:mb-2 shadow-md group-hover:bg-white transition-colors">
+                  <Mail size={18} />
                 </div>
-                <h3 className="text-xs md:text-sm font-black text-primary group-hover:text-white">Email Us</h3>
-                <a href="mailto:javedcomputer786@gmail.com" className="text-gray-500 text-[10px] md:text-xs font-bold group-hover:text-orange-100 truncate w-full px-1" title="javedcomputer786@gmail.com">javedcomputer786@gmail...</a>
+                <h3 className="text-[10px] md:text-sm font-black text-primary group-hover:text-white uppercase tracking-tighter">Email</h3>
+                <a href="mailto:javedcomputer786@gmail.com" className="text-gray-500 text-[9px] md:text-xs font-bold group-hover:text-orange-100 truncate w-full px-1" title="javedcomputer786@gmail.com">javedcomputer...</a>
               </div>
 
-              <div className="bg-white p-3 md:p-4 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center group hover:bg-secondary transition-all duration-300">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-sky-100 text-sky-600 rounded-xl flex items-center justify-center mb-2 shadow-md group-hover:bg-white transition-colors">
-                  <Clock size={20} />
+              <div className="bg-white p-2 md:p-4 rounded-xl shadow-lg border border-gray-100 flex flex-col items-center text-center group hover:bg-secondary transition-all duration-300">
+                <div className="w-8 h-8 md:w-12 md:h-12 bg-sky-100 text-sky-600 rounded-lg md:rounded-xl flex items-center justify-center mb-1 md:mb-2 shadow-md group-hover:bg-white transition-colors">
+                  <Clock size={18} />
                 </div>
-                <h3 className="text-xs md:text-sm font-black text-primary group-hover:text-white">Timings</h3>
-                <span className="text-gray-500 text-[10px] md:text-xs font-bold group-hover:text-sky-100">9 AM - 9 PM</span>
+                <h3 className="text-[10px] md:text-sm font-black text-primary group-hover:text-white uppercase tracking-tighter">Timings</h3>
+                <span className="text-gray-500 text-[9px] md:text-xs font-bold group-hover:text-sky-100">9 AM - 9 PM</span>
               </div>
 
-              <div className="bg-white p-3 md:p-4 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center group col-span-2 lg:col-span-1 hover:bg-accent transition-all duration-300">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center mb-2 shadow-md group-hover:bg-white transition-colors">
-                  <MapPin size={20} />
+              <div className="bg-white p-2 md:p-4 rounded-xl shadow-lg border border-gray-100 flex flex-col items-center text-center group col-span-2 lg:col-span-1 hover:bg-accent transition-all duration-300">
+                <div className="w-8 h-8 md:w-12 md:h-12 bg-orange-100 text-orange-600 rounded-lg md:rounded-xl flex items-center justify-center mb-1 md:mb-2 shadow-md group-hover:bg-white transition-colors">
+                  <MapPin size={18} />
                 </div>
-                <h3 className="text-xs md:text-sm font-black text-primary group-hover:text-white">Location</h3>
-                <a href="https://maps.app.goo.gl/ZZQNQoVBeV3S97n2A" target="_blank" rel="noreferrer" className="text-gray-500 text-[10px] md:text-xs font-bold group-hover:text-orange-100">Chirgaon, Jhansi</a>
+                <h3 className="text-[10px] md:text-sm font-black text-primary group-hover:text-white uppercase tracking-tighter">Location</h3>
+                <a href="https://maps.app.goo.gl/ZZQNQoVBeV3S97n2A" target="_blank" rel="noreferrer" className="text-gray-500 text-[9px] md:text-xs font-bold group-hover:text-orange-100">Chirgaon, Jhansi</a>
               </div>
             </motion.div>
         </div>
