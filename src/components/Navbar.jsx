@@ -1,27 +1,130 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Monitor, Menu, X, Rocket } from 'lucide-react';
+import { Monitor, Menu, X, Rocket, FileText, Globe, MessageCircle, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const Navbar = () => {
+const Navbar = ({ isCollapsed, onToggle }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Services', path: '/services' },
-    { name: 'Price List', path: '/price-list' },
-    { name: 'Online Form', path: '/online-form' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'Home', path: '/', icon: <Monitor className="w-6 h-6" /> },
+    { name: 'Services', path: '/services', icon: <Rocket className="w-6 h-6" /> },
+    { name: 'Price List', path: '/price-list', icon: <FileText className="w-6 h-6" /> },
+    { name: 'Online Form', path: '/online-form', icon: <Globe className="w-6 h-6" /> },
+    { name: 'Track Status', path: '/track-status', icon: <Search className="w-6 h-6" /> },
+    { name: 'Contact', path: '/contact', icon: <MessageCircle className="w-6 h-6" /> },
   ];
 
   const isActive = (path) => location.pathname === path;
 
+  // Sidebar Layout for Desktop (non-home pages)
+  if (!isHomePage) {
+    return (
+      <>
+        {/* Desktop Sidebar */}
+        <nav 
+          className={`hidden md:flex fixed left-0 top-0 bottom-0 ${isCollapsed ? 'w-20' : 'w-72'} bg-primary flex-col border-r border-white/10 z-50 transition-all duration-300 overflow-hidden shadow-2xl`}
+        >
+          <div className="p-4 md:p-6 flex-1 flex flex-col">
+            <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} mb-12`}>
+              {!isCollapsed && (
+                <Link to="/" className="flex items-center space-x-3 group">
+                   <Rocket className="h-8 w-8 text-secondary group-hover:rotate-12 transition-transform duration-300" />
+                   <span className="text-white text-xl font-black tracking-tighter uppercase leading-none">Javed <br/> Computers</span>
+                </Link>
+              )}
+              {isCollapsed && (
+                <Link to="/">
+                   <Rocket className="h-8 w-8 text-secondary" />
+                </Link>
+              )}
+            </div>
+
+            <div className="flex flex-col space-y-2">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className={`${
+                    isActive(link.path)
+                      ? 'bg-secondary text-primary font-black shadow-lg shadow-secondary/20'
+                      : 'text-gray-300 hover:text-secondary hover:bg-white/5'
+                  } ${isCollapsed ? 'p-3 justify-center' : 'px-6 py-4'} rounded-2xl text-base font-bold transition-all duration-300 flex items-center group relative`}
+                  title={isCollapsed ? link.name : ""}
+                >
+                  <span className={`${isCollapsed ? '' : 'mr-3'}`}>{link.icon || <Monitor size={20} />}</span>
+                  {!isCollapsed && <span className="relative z-10 whitespace-nowrap">{link.name}</span>}
+                  
+                  {isActive(link.path) && !isCollapsed && (
+                    <motion.div 
+                      layoutId="activeBar"
+                      className="absolute right-0 w-1 h-8 bg-secondary rounded-l-full"
+                    />
+                  )}
+                </Link>
+              ))}
+            </div>
+
+            <button 
+              onClick={onToggle}
+              className={`mt-auto mb-4 bg-white/5 hover:bg-white/10 text-white p-4 rounded-2xl flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} transition-all`}
+            >
+              {!isCollapsed && <span className="text-sm font-bold uppercase tracking-widest opacity-60">Collapse</span>}
+              <Menu size={20} className={isCollapsed ? 'rotate-90' : ''} />
+            </button>
+          </div>
+        </nav>
+
+        {/* Mobile Top Bar (non-home pages) */}
+        <nav className="md:hidden fixed top-0 left-0 right-0 z-50 bg-primary/80 backdrop-blur-xl border-b border-white/10 shadow-2xl">
+          <div className="px-4 h-20 flex items-center justify-between">
+            <Link to="/" className="flex items-center space-x-2">
+              <Rocket className="h-6 w-6 text-secondary" />
+              <span className="text-white text-xl font-black uppercase tracking-tighter">Javed</span>
+            </Link>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 rounded-xl text-gray-400 hover:text-white"
+            >
+              {isOpen ? <X className="h-7 w-7 text-secondary" /> : <Menu className="h-7 w-7" />}
+            </button>
+          </div>
+
+          {isOpen && (
+            <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                className="bg-primary/95 backdrop-blur-2xl px-4 pb-8 space-y-2 border-t border-white/5"
+            >
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className={`${
+                    isActive(link.path)
+                      ? 'bg-secondary text-primary font-black'
+                      : 'text-gray-300 hover:bg-white/5'
+                  } block px-5 py-4 rounded-2xl text-lg font-black transition-all`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </motion.div>
+          )}
+        </nav>
+      </>
+    );
+  }
+
+  // Original Top Layout for Home Page
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/80 backdrop-blur-xl border-b border-white/10 shadow-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <Link to="/" className="flex-shrink-0 flex items-center space-x-3 group">
+          <Link to="/" className="shrink-0 flex items-center space-x-3 group">
             <div className="relative">
               <div className="absolute -inset-1 bg-secondary rounded-full blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
               <Rocket className="h-8 w-8 text-secondary relative group-hover:rotate-12 transition-transform duration-300" />
@@ -44,15 +147,6 @@ const Navbar = () => {
                   {link.name}
                 </Link>
               ))}
-              <Link
-                to="/admin"
-                className="ml-4 relative group"
-              >
-                <div className="absolute -inset-0.5 bg-accent rounded-full blur opacity-50 group-hover:opacity-100 transition duration-300"></div>
-                <button className="relative bg-accent text-white px-6 py-2 rounded-full text-sm font-black shadow-xl hover:scale-105 active:scale-95 transition-all duration-300">
-                  Admin Panel
-                </button>
-              </Link>
             </div>
           </div>
 
@@ -87,15 +181,6 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
-          <Link
-            to="/admin"
-            className="block pt-4"
-            onClick={() => setIsOpen(false)}
-          >
-            <button className="w-full bg-accent text-white py-4 rounded-2xl text-lg font-black shadow-2xl shadow-accent/20 active:scale-95 transition-all">
-                Admin Panel
-            </button>
-          </Link>
         </motion.div>
       )}
     </nav>

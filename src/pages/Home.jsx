@@ -84,7 +84,7 @@ const Home = () => {
                             <motion.div 
                                 key={job._id}
                                 whileHover={{ y: -5 }}
-                                className="bg-[#111A2D] p-8 rounded-[2rem] border border-white/10 shadow-2xl flex flex-col h-full group hover:border-secondary/50 transition-colors"
+                                className="bg-[#111A2D] p-8 rounded-4xl border border-white/10 shadow-2xl flex flex-col h-full group hover:border-secondary/50 transition-colors"
                             >
                                 <div className="flex-1">
                                     <div className="flex justify-between items-start mb-6">
@@ -95,28 +95,34 @@ const Home = () => {
                                             Last Date: {job.lastDate}
                                         </span>
                                     </div>
-                                    <h3 className="text-2xl font-black text-white mb-3 group-hover:text-secondary transition-colors">{job.title}</h3>
+                                    <h3 className="text-2xl font-black text-white mb-3 group-hover:text-secondary transition-colors line-clamp-2 h-16">{job.title}</h3>
                                     
-                                    <div className="space-y-3 mb-8">
-                                        <div className="flex items-start space-x-3">
-                                            <FileText size={16} className="text-gray-500 mt-1 shrink-0" />
-                                            <p className="text-sm text-gray-400"><span className="text-gray-300 font-bold">Docs:</span> {job.documentRequired}</p>
+                                    <div className="space-y-4 mb-8">
+                                        <div className="flex items-start space-x-3 bg-white/5 p-3 rounded-xl border border-white/5 group-hover:border-white/10 transition-colors">
+                                            <FileText size={18} className="text-secondary mt-0.5 shrink-0" />
+                                            <div>
+                                                <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-1">Required Assets</p>
+                                                <p className="text-sm text-gray-300 font-bold leading-tight">{job.documentRequired}</p>
+                                            </div>
                                         </div>
-                                        <div className="flex items-center space-x-3">
-                                            <CreditCard size={16} className="text-gray-500 shrink-0" />
-                                            <p className="text-sm text-gray-400"><span className="text-gray-300 font-bold">Fee:</span> {job.fee}</p>
+                                        <div className="flex items-center space-x-3 bg-white/5 p-3 rounded-xl border border-white/5 group-hover:border-white/10 transition-colors">
+                                            <CreditCard size={18} className="text-emerald-400 shrink-0" />
+                                            <div>
+                                                <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-1">Service Fee</p>
+                                                <p className="text-sm text-emerald-400 font-black">{job.fee}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <div className="flex flex-col sm:flex-row gap-4 mt-auto">
+                                <div className="flex flex-col sm:flex-row gap-4 mt-auto relative z-20">
                                     {job.applyLink && (
-                                        <a href={job.applyLink} target="_blank" rel="noreferrer" className="flex-1 bg-white/5 hover:bg-white/10 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center space-x-2 transition-colors text-sm">
-                                            <span>Official Link</span> <ExternalLink size={16} />
+                                        <a href={job.applyLink} target="_blank" rel="noreferrer" className="flex-1 bg-white/10 hover:bg-white/20 text-white font-black py-4 px-4 rounded-2xl flex items-center justify-center space-x-2 transition-all text-[10px] uppercase tracking-widest border border-white/5 hover:border-white/20 active:scale-95">
+                                            <span>Official Node</span> <ExternalLink size={14} />
                                         </a>
                                     )}
-                                    <a href={whatsappLink} target="_blank" rel="noreferrer" className="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center space-x-2 transition-colors text-sm shadow-lg shadow-green-500/20">
-                                        <MessageCircle size={16} fill="currentColor" /> <span>Send Details</span>
+                                    <a href={whatsappLink} target="_blank" rel="noreferrer" className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white font-black py-4 px-4 rounded-2xl flex items-center justify-center space-x-2 transition-all text-[10px] uppercase tracking-widest shadow-[0_10px_30px_-5px_rgba(16,185,129,0.3)] hover:shadow-[0_15px_35px_-5px_rgba(16,185,129,0.5)] active:scale-95 active:shadow-none">
+                                        <MessageCircle size={14} fill="currentColor" /> <span>Direct Uplink</span>
                                     </a>
                                 </div>
                             </motion.div>

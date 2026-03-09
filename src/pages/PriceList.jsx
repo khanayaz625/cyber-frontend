@@ -45,23 +45,37 @@ const PriceList = () => {
                     <p className="text-gray-500 text-xl font-medium">Clear and transparent pricing for all our premium services.</p>
                 </header>
 
-                <div className="bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-gray-100 p-12">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                        {prices.map((item, idx) => (
-                            <motion.div 
-                                key={idx}
-                                whileHover={{ scale: 1.05 }}
-                                className="flex items-center space-x-6 bg-gray-50/50 p-8 rounded-[2rem] border-2 border-transparent hover:border-secondary hover:bg-white transition-all duration-300"
-                            >
-                                <div className="w-14 h-14 bg-primary text-white rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 shrink-0">
-                                    {item.icon && typeof item.icon !== 'string' ? React.cloneElement(item.icon, { size: 28 }) : <FileText size={28} />}
-                                </div>
-                                <div>
-                                    <h3 className="text-lg font-bold text-primary mb-1 tracking-tight">{item.name || item.service}</h3>
-                                    <p className="text-2xl font-black text-accent">₹{item.price}</p>
-                                </div>
-                            </motion.div>
-                        ))}
+                <div className="bg-white/40 backdrop-blur-xl rounded-[3rem] shadow-2xl overflow-hidden border border-white/40 p-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {prices.map((item, idx) => {
+                            const colors = [
+                                'from-indigo-500 to-blue-600',
+                                'from-emerald-500 to-teal-600',
+                                'from-orange-500 to-rose-600',
+                                'from-purple-500 to-indigo-600',
+                                'from-sky-500 to-indigo-600',
+                                'from-amber-500 to-orange-600'
+                            ];
+                            const bgColor = colors[idx % colors.length];
+                            
+                            return (
+                                <motion.div 
+                                    key={idx}
+                                    whileHover={{ y: -8, scale: 1.02 }}
+                                    className="bg-white p-8 rounded-4xl border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col items-center text-center group relative overflow-hidden transition-all duration-300"
+                                >
+                                    <div className={`absolute top-0 inset-x-0 h-1.5 bg-linear-to-r ${bgColor}`}></div>
+                                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-xl transition-all duration-500 group-hover:rotate-6 bg-linear-to-br ${bgColor} text-white`}>
+                                        {item.icon && typeof item.icon !== 'string' ? React.cloneElement(item.icon, { size: 32 }) : <FileText size={32} />}
+                                    </div>
+                                    <h3 className="text-xl font-black text-slate-800 mb-3 tracking-tight line-clamp-2 min-h-[56px]">{item.name || item.service}</h3>
+                                    <div className="flex items-baseline space-x-1">
+                                        <span className="text-sm font-black text-slate-400">₹</span>
+                                        <span className={`text-4xl font-extrabold bg-linear-to-r ${bgColor} bg-clip-text text-transparent`}>{item.price}</span>
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
                     </div>
                 </div>
 
