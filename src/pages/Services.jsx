@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { 
-  CreditCard, 
-  UserCircle, 
-  MapPin, 
-  Heart, 
-  FileText, 
-  ShieldCheck, 
-  Train, 
-  Bus, 
-  Plane, 
-  Printer, 
-  Layers, 
-  Image, 
+import {
+  CreditCard,
+  UserCircle,
+  MapPin,
+  Heart,
+  FileText,
+  ShieldCheck,
+  Train,
+  Bus,
+  Plane,
+  Printer,
+  Layers,
+  Image,
   Zap,
   Smartphone,
   Camera
@@ -63,7 +63,7 @@ const Services = () => {
             acc[curr.category].push({
               name: curr.name,
               desc: curr.description,
-              icon: <FileText /> 
+              icon: <FileText />
             });
             return acc;
           }, {});
@@ -88,8 +88,8 @@ const Services = () => {
     <div className="bg-gray-50 min-h-screen pt-24 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <header className="mb-16 text-center">
-          <h1 className="text-5xl font-black text-primary mb-4 tracking-tight">Our <span className="text-secondary">Premium</span> Services</h1>
-          <p className="text-gray-500 text-xl max-w-2xl mx-auto font-medium">All your digital and government needs under one roof at Javed Computers.</p>
+          <h1 className="text-5xl font-black text-primary mb-4 tracking-tight">Our <span className="text-secondary">Available</span> Services</h1>
+          <p className="text-gray-500 text-xl max-w-2xl mx-auto font-medium">Professional digital and government service assistance at Javed Computers.</p>
         </header>
 
         {data.map((section, idx) => (
@@ -101,7 +101,7 @@ const Services = () => {
               {section.items.map((item, idy) => {
                 const MotionLink = motion(Link);
                 return (
-                  <MotionLink 
+                  <MotionLink
                     key={idy}
                     to={`/contact?service=${encodeURIComponent(item.name)}`}
                     initial={{ opacity: 0, scale: 0.9 }}

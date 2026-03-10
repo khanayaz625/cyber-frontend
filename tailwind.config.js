@@ -7,10 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#1E293B',    // Deep Slate
-        secondary: '#4F46E5',  // Indigo
-        accent: '#0EA5E9',     // Sky
-        surface: '#F8FAFC',    // Lightest Slate
+        primary: '#0f172a',    // Deep Navy
+        secondary: '#0891b2',  // Cyan/Teal
+        accent: '#f59e0b',     // Amber
+        surface: '#f1f5f9',    // Slate surface
       },
     },
   },

@@ -5,7 +5,7 @@ import { CreditCard, Printer, FileText, Globe, Smartphone, CreditCard as CardIco
 
 const PriceList = () => {
     const [prices, setPrices] = useState([]);
-    
+
     // Default prices just in case the backend is empty or fails
     const defaultPrices = [
         { name: 'B&W Printout', price: 5, icon: <Printer /> },
@@ -41,8 +41,8 @@ const PriceList = () => {
         <div className="bg-gray-50 min-h-screen pt-24 pb-20">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 <header className="mb-16 text-center">
-                    <h1 className="text-5xl font-black text-primary mb-4 tracking-tight">Our <span className="text-accent underline decoration-orange-300 decoration-8 underline-offset-4">Rate Chart</span></h1>
-                    <p className="text-gray-500 text-xl font-medium">Clear and transparent pricing for all our premium services.</p>
+                    <h1 className="text-5xl font-black text-primary mb-4 tracking-tight">Our <span className="text-secondary underline decoration-orange-300 decoration-8 underline-offset-4">Service Rates</span></h1>
+                    <p className="text-gray-500 text-xl font-medium">Clear and transparent pricing for all our digital services.</p>
                 </header>
 
                 <div className="bg-white/40 backdrop-blur-xl rounded-[3rem] shadow-2xl overflow-hidden border border-white/40 p-12">
@@ -57,9 +57,9 @@ const PriceList = () => {
                                 'from-amber-500 to-orange-600'
                             ];
                             const bgColor = colors[idx % colors.length];
-                            
+
                             return (
-                                <motion.div 
+                                <motion.div
                                     key={idx}
                                     whileHover={{ y: -8, scale: 1.02 }}
                                     className="bg-white p-8 rounded-4xl border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col items-center text-center group relative overflow-hidden transition-all duration-300"
