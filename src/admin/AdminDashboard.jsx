@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LayoutDashboard, Users, FileText, Settings, LogOut, CheckCircle, Clock, Trash, ExternalLink, Menu, X, TerminalSquare, AlertCircle, Phone, Mail, MapPin, Briefcase, MessageCircle, Edit2, RotateCcw, Search, Printer, Download, Send, ShieldCheck, Share2 } from 'lucide-react';
+import { LayoutDashboard, Users, FileText, Settings, LogOut, CheckCircle, Clock, Trash, ExternalLink, Menu, X, TerminalSquare, AlertCircle, Phone, Mail, MapPin, Briefcase, MessageCircle, Edit2, RotateCcw, Search, Printer, Download, Send, ShieldCheck, Share2, Globe } from 'lucide-react';
 
 const AdminDashboard = () => {
     const [forms, setForms] = useState([]);
@@ -172,7 +172,8 @@ const AdminDashboard = () => {
             fetchForms();
             showNotify('Payment ledger updated');
         } catch (err) {
-            showNotify('Payment update failed', 'error');
+            const errorMsg = err.response?.data?.message || 'Payment update failed';
+            showNotify(errorMsg, 'error');
         }
     };
 
@@ -340,7 +341,8 @@ const AdminDashboard = () => {
             </AnimatePresence>
 
             {/* Main Content Area */}
-            <div className="flex-1 overflow-y-auto overflow-x-hidden p-6 md:p-12 lg:p-16 relative bg-[#0B1120]">
+            <div className="flex-1 overflow-y-auto overflow-x-hidden p-6 md:p-12 lg:p-16 relative bg-[#0B1120] print:p-0 print:overflow-visible print:bg-white">
+                <div className="print:hidden">
                 {/* Mobile Header Navigation */}
                 <div className="lg:hidden flex justify-between items-center mb-10 bg-primary/40 p-5 rounded-4xl shadow-sm border border-white/5 backdrop-blur-md">
                     <div className="flex items-center space-x-4">
@@ -673,7 +675,10 @@ const AdminDashboard = () => {
                                                                             });
                                                                             fetchForms();
                                                                             showNotify('Fee updated');
-                                                                        } catch (err) { showNotify('Update failed', 'error'); }
+                                                                                } catch (err) { 
+                                                                                 const errorMsg = err.response?.data?.message || 'Update failed';
+                                                                                 showNotify(errorMsg, 'error'); 
+                                                                             }
                                                                     }
                                                                 }}
                                                             />
@@ -694,7 +699,10 @@ const AdminDashboard = () => {
                                                                             });
                                                                             fetchForms();
                                                                             showNotify('Payment recorded');
-                                                                        } catch (err) { showNotify('Update failed', 'error'); }
+                                                                                } catch (err) { 
+                                                                                 const errorMsg = err.response?.data?.message || 'Update failed';
+                                                                                 showNotify(errorMsg, 'error'); 
+                                                                             }
                                                                     }
                                                                 }}
                                                             />
@@ -997,7 +1005,7 @@ const AdminDashboard = () => {
                         >
                             <motion.div
                                 initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 20 }}
-                                className="bg-primary w-full max-w-2xl rounded-4xl p-8 relative overflow-hidden border border-white/10 shadow-[0_0_100px_rgba(0,0,0,0.5)]"
+                                className="bg-primary w-full max-w-2xl max-h-[90vh] rounded-4xl p-8 relative overflow-hidden border border-white/10 shadow-[0_0_100px_rgba(0,0,0,0.5)] flex flex-col"
                             >
                                 <div className="absolute top-0 left-0 w-full h-2 bg-linear-to-r from-secondary to-blue-400"></div>
                                 <button
@@ -1016,76 +1024,32 @@ const AdminDashboard = () => {
                                     <p className="text-slate-500 font-bold text-xs mt-2">Assets for: {viewingDocs.fullName} ({viewingDocs.customerId})</p>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                                    <div className="space-y-4">
-                                        <label className="text-[10px] font-black uppercase text-slate-500 tracking-[0.2em] mb-3 block">Financial Ledger</label>
-                                        <div className="grid grid-cols-3 gap-3">
-                                            <div className="space-y-1">
-                                                <span className="text-[8px] font-black text-slate-500 uppercase tracking-widest ml-1">Total Fee (₹)</span>
-                                                <input
-                                                    type="number"
-                                                    className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm font-bold text-white outline-none focus:border-secondary transition-all"
-                                                    value={paymentInfo.total}
-                                                    onChange={e => setPaymentInfo({ ...paymentInfo, total: e.target.value })}
-                                                />
-                                            </div>
-                                            <div className="space-y-1">
-                                                <span className="text-[8px] font-black text-slate-500 uppercase tracking-widest ml-1">Advance (₹)</span>
-                                                <input
-                                                    type="number"
-                                                    className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm font-bold text-emerald-400 outline-none focus:border-emerald-500 transition-all"
-                                                    value={paymentInfo.paid}
-                                                    onChange={e => setPaymentInfo({ ...paymentInfo, paid: e.target.value })}
-                                                />
-                                            </div>
-                                            <div className="space-y-1">
-                                                <span className="text-[8px] font-black text-slate-500 uppercase tracking-widest ml-1">Payment Mode</span>
-                                                <select
-                                                    className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-sm font-bold text-secondary outline-none focus:border-secondary transition-all"
-                                                    value={paymentInfo.method}
-                                                    onChange={e => setPaymentInfo({ ...paymentInfo, method: e.target.value })}
-                                                >
-                                                    <option value="Pending">Pending</option>
-                                                    <option value="Cash">Cash</option>
-                                                    <option value="Online">Online</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                <div className="space-y-4 mb-8">
+                                    <label className="text-[10px] font-black uppercase text-secondary tracking-[0.2em] mb-3 block">Operational Notes / Directives</label>
+                                    <div className="flex gap-3">
+                                        <textarea
+                                            className="flex-1 bg-white/5 border border-white/10 rounded-2xl p-4 text-sm font-bold text-white outline-none focus:border-secondary transition-all resize-none h-24 placeholder:text-slate-600"
+                                            placeholder="Add operational notes here..."
+                                            value={tempNotes}
+                                            onChange={e => setTempNotes(e.target.value)}
+                                        />
                                         <button
-                                            onClick={() => updatePayment(viewingDocs._id)}
-                                            className="w-full bg-emerald-500/10 text-emerald-400 p-3 rounded-xl hover:bg-emerald-500 hover:text-white transition-all font-black text-[10px] uppercase tracking-widest flex items-center justify-center space-x-2 border border-emerald-500/20 cursor-pointer"
+                                            onClick={() => updateFormNotes(viewingDocs._id, tempNotes)}
+                                            className="bg-secondary text-primary px-6 rounded-2xl hover:bg-white transition-all shadow-xl shadow-secondary/10 font-black cursor-pointer"
                                         >
-                                            <CheckCircle size={14} />
-                                            <span>Update Ledger</span>
+                                            <CheckCircle size={20} className="mr-2 inline" />
+                                            SAVE
                                         </button>
-                                    </div>
-
-                                    <div className="space-y-4">
-                                        <label className="text-[10px] font-black uppercase text-slate-500 tracking-[0.2em] mb-3 block">Internal Directives / Notes</label>
-                                        <div className="flex gap-2">
-                                            <textarea
-                                                className="flex-1 bg-white/5 border border-white/10 rounded-xl p-3 text-sm font-bold text-white outline-none focus:border-secondary transition-all resize-none h-20 placeholder:text-slate-600"
-                                                placeholder="Add operational notes here..."
-                                                value={tempNotes}
-                                                onChange={e => setTempNotes(e.target.value)}
-                                            />
-                                            <button
-                                                onClick={() => updateFormNotes(viewingDocs._id, tempNotes)}
-                                                className="bg-secondary text-primary p-3 rounded-xl hover:bg-white transition-all shadow-xl shadow-secondary/10 self-end font-black cursor-pointer"
-                                            >
-                                                <CheckCircle size={18} />
-                                            </button>
-                                        </div>
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-y-auto pr-2 custom-scrollbar flex-1">
                                     {viewingDocs.documents?.length > 0 ? viewingDocs.documents.map((doc, idx) => {
                                         const ext = doc.split('.').pop().toUpperCase();
                                         return (
                                             <a
                                                 key={idx}
-                                                href={`${import.meta.env.VITE_API_URL.replace('/api', '')}/${doc.replace(/\\/g, '/')}`}
+                                                href={doc.startsWith('http') ? doc : `${import.meta.env.VITE_API_URL.replace('/api', '')}/${doc.replace(/\\/g, '/')}`}
                                                 target="_blank"
                                                 rel="noreferrer"
                                                 className="flex items-center justify-between p-5 bg-gray-50 rounded-3xl hover:bg-secondary/10 border border-gray-100 hover:border-secondary/30 transition-all group"
@@ -1122,11 +1086,12 @@ const AdminDashboard = () => {
                         </motion.div>
                     )}
                 </AnimatePresence>
+                </div>
 
                 {/* Receipt Modal */}
                 <AnimatePresence>
                     {viewingReceipt && (
-                        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
+                        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 receipt-print-container">
                             <motion.div
                                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                                 className="absolute inset-0 bg-primary/90 backdrop-blur-2xl print:hidden"
@@ -1245,8 +1210,11 @@ const AdminDashboard = () => {
                                             </div>
                                         </div>
                                         <div className="text-center md:text-right flex flex-col items-center md:items-end justify-center">
-                                            <div className="w-32 h-32 border border-slate-100 rounded-xl mb-3 flex items-center justify-center bg-slate-50 print:border-slate-900">
-                                                <RotateCcw className="text-slate-200 w-12 h-12" /> {/* Placeholder for QR */}
+                                            <div className="w-40 p-4 border-2 border-slate-100 rounded-3xl mb-3 flex flex-col items-center justify-center bg-slate-50 print:border-slate-300">
+                                                <Globe className="text-secondary w-10 h-10 mb-2" />
+                                                <p className="text-[10px] font-black text-slate-900 leading-none">JAVED</p>
+                                                <p className="text-[10px] font-black text-secondary leading-none">COMPUTERS</p>
+                                                <div className="mt-2 text-[8px] font-bold text-slate-400 border-t border-slate-200 pt-1 w-full text-center uppercase tracking-tighter">Verified Seal</div>
                                             </div>
                                         </div>
                                     </div>

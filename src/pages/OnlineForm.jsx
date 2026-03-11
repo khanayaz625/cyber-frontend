@@ -30,6 +30,7 @@ const OnlineForm = () => {
     const [submitting, setSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [hoveredField, setHoveredField] = useState(null);
+    const [generatedId, setGeneratedId] = useState('');
 
     const handleInputChange = (e) => {
         let { name, value } = e.target;
@@ -61,7 +62,8 @@ const OnlineForm = () => {
         }
 
         try {
-            await axios.post(`${import.meta.env.VITE_API_URL}/forms/submit`, data);
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/forms/submit`, data);
+            setGeneratedId(res.data.customerId);
             setSubmitted(true);
         } catch (err) {
             const errorMsg = err.response?.data?.message || err.message;
@@ -86,13 +88,22 @@ const OnlineForm = () => {
                     </div>
 
                     <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight leading-tight">Application <span className="text-secondary">Submitted</span></h2>
-                    <p className="text-slate-500 text-lg font-bold mb-10 leading-relaxed">Your application has been received successfully, <span className="text-secondary not-italic">{formData.fullName}</span>. Our team will contact you shortly regarding the <span className="text-slate-900 not-italic uppercase tracking-tight">{formData.serviceType}</span>.</p>
+                    <p className="text-slate-500 text-lg font-bold mb-6 leading-relaxed">Your application has been received successfully, <span className="text-secondary not-italic">{formData.fullName}</span>.</p>
+                    
+                    <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 mb-10 text-center">
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Tracking Reference ID</p>
+                        <h3 className="text-2xl font-black text-indigo-600 tracking-tighter">{generatedId}</h3>
+                        <p className="text-[9px] font-bold text-slate-400 mt-2 uppercase">Please save this ID to track your progress.</p>
+                    </div>
+
+                    <p className="text-slate-500 text-sm font-bold mb-10 leading-relaxed uppercase tracking-tight">Our team will contact you shortly regarding the <span className="text-slate-900">{formData.serviceType}</span>.</p>
 
                     <button
                         onClick={() => {
                             setSubmitted(false);
                             setFormData({ fullName: '', email: '', phone: '', whatsapp: '', serviceType: '', details: '' });
                             setFiles([]);
+                            setGeneratedId('');
                         }}
                         className="bg-secondary text-white px-10 py-5 rounded-2xl text-lg font-black shadow-2xl shadow-cyan-200 hover:bg-slate-900 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center mx-auto space-x-3 group"
                     >

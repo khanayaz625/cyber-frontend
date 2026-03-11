@@ -79,9 +79,9 @@ const Navbar = ({ isCollapsed, onToggle }) => {
         {/* Mobile Top Bar (non-home pages) */}
         <nav className="md:hidden fixed top-0 left-0 right-0 z-50 bg-primary/80 backdrop-blur-xl border-b border-white/10 shadow-2xl">
           <div className="px-4 h-20 flex items-center justify-between">
-            <Link to="/" className="shrink-0 flex items-center space-x-2">
-              <Globe className="h-6 w-6 text-secondary" />
-              <span className="text-white text-xl font-black uppercase tracking-tighter">Javed</span>
+            <Link to="/" className="shrink-0 flex items-center space-x-2 mr-2">
+              <Globe className="h-6 w-6 text-secondary shrink-0" />
+              <span className="text-white text-lg sm:text-xl font-black uppercase tracking-tighter whitespace-nowrap">Javed Computers</span>
             </Link>
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -122,12 +122,12 @@ const Navbar = ({ isCollapsed, onToggle }) => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/80 backdrop-blur-xl border-b border-white/10 shadow-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <Link to="/" className="shrink-0 flex items-center space-x-3 group">
-            <div className="relative">
+          <Link to="/" className="shrink-0 flex items-center space-x-3 group mr-2">
+            <div className="relative shrink-0">
               <div className="absolute -inset-1 bg-secondary rounded-full blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
-              <Globe className="h-8 w-8 text-secondary relative group-hover:rotate-12 transition-transform duration-300" />
+              <Globe className="h-6 w-6 sm:h-8 sm:w-8 text-secondary relative group-hover:rotate-12 transition-transform duration-300" />
             </div>
-            <span className="text-white text-2xl font-black tracking-tighter group-hover:text-secondary transition-colors duration-300 uppercase">Javed Computers</span>
+            <span className="text-white text-lg sm:text-2xl font-black tracking-tighter group-hover:text-secondary transition-colors duration-300 uppercase whitespace-nowrap">Javed Computers</span>
           </Link>
 
           <div className="hidden md:block">

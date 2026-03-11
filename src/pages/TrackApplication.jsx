@@ -69,8 +69,9 @@ const TrackApplication = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 pt-24 pb-12 px-6">
+        <div className="min-h-screen bg-slate-50 pt-24 pb-12 px-6 print:min-h-0 print:p-0 print:bg-white">
             <div className="max-w-4xl mx-auto">
+                <div className="print:hidden">
                 <div className="text-center mb-12">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
@@ -201,11 +202,12 @@ const TrackApplication = () => {
                         )}
                     </AnimatePresence>
                 </div>
+                </div>
 
                 {/* Receipt Modal */}
                 <AnimatePresence>
                     {viewingReceipt && status && (
-                        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 md:p-8">
+                        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 receipt-print-container">
                             <motion.div
                                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                                 className="absolute inset-0 bg-slate-900/40 backdrop-blur-2xl print:hidden"
@@ -324,8 +326,11 @@ const TrackApplication = () => {
                                             </div>
                                         </div>
                                         <div className="text-center md:text-right flex flex-col items-center md:items-end justify-center">
-                                            <div className="w-32 h-32 border border-slate-100 rounded-xl mb-3 flex items-center justify-center bg-slate-50 print:border-slate-900">
-                                                <RotateCcw className="text-slate-200 w-12 h-12" />
+                                            <div className="w-40 p-4 border-2 border-slate-100 rounded-3xl mb-3 flex flex-col items-center justify-center bg-slate-50 print:border-slate-300">
+                                                <Globe className="text-secondary w-10 h-10 mb-2" />
+                                                <p className="text-[10px] font-black text-slate-900 leading-none">JAVED</p>
+                                                <p className="text-[10px] font-black text-secondary leading-none">COMPUTERS</p>
+                                                <div className="mt-2 text-[8px] font-bold text-slate-400 border-t border-slate-200 pt-1 w-full text-center uppercase tracking-tighter">Verified Seal</div>
                                             </div>
                                         </div>
                                     </div>
