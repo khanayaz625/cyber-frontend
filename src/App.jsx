@@ -41,21 +41,23 @@ function AppContent() {
   const isHomePage = location.pathname === '/';
 
   return (
-    <div className={`flex flex-col min-h-screen bg-gray-50 overflow-x-hidden`}>
+    <div className={`flex flex-col min-h-screen bg-gray-50 overflow-x-hidden print:overflow-visible print:bg-white`}>
       <ScrollToTop />
+      <div className="print:hidden">
       {!isAdminPath && (
         <Navbar
           isCollapsed={isSidebarCollapsed}
           onToggle={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         />
       )}
+      </div>
 
       {/* 
           If not home page and not admin, we need left margin on desktop for the side navbar.
           The side navbar is fixed and 72rem (w-72) or 20rem (w-20) wide. 
       */}
-      <div className={`flex flex-col grow transition-all duration-300 ${!isHomePage && !isAdminPath ? (isSidebarCollapsed ? 'md:pl-20' : 'md:pl-72') + ' pt-20 md:pt-0' : ''}`}>
-        <main className="grow">
+      <div className={`flex flex-col grow transition-all duration-300 print:pl-0 print:pt-0 print:block ${!isHomePage && !isAdminPath ? (isSidebarCollapsed ? 'md:pl-20' : 'md:pl-72') + ' pt-20 md:pt-0' : ''}`}>
+        <main className="grow print:w-full print:block">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
@@ -109,7 +111,7 @@ function AppContent() {
       </div>
 
       {!isAdminPath && (
-        <>
+        <div className="print:hidden">
           {/* Scroll to top button */}
           <button
             onClick={scrollToTop}
@@ -129,7 +131,7 @@ function AppContent() {
           >
             <MessageCircle size={28} />
           </a>
-        </>
+        </div>
       )}
     </div>
   );
